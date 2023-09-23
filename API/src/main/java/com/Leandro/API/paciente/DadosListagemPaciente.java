@@ -1,9 +1,11 @@
 package com.Leandro.API.paciente;
 
-public record DadosListagemPaciente( String nome, String email) {
+import com.Leandro.API.endereco.Endereco;
+
+public record DadosListagemPaciente(Long id, String nome, Endereco endereco, String telefone, String email) {
 
 
     public DadosListagemPaciente(Paciente paciente) {
-        this(paciente.getNome(), paciente.getEmail());
+        this(paciente.getId(), paciente.getNome(), paciente.getEndereco(), paciente.getTelefone(), paciente.getEmail());
     }
 }

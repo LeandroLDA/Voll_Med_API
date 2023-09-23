@@ -28,7 +28,9 @@ public class MedicoController {
     }
     @GetMapping
     public Page<DadosListagemMedico> listar (@PageableDefault(size=10, sort = {"nome"}) Pageable paginacao) {
-        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new); //é possivel fazer a pesquisa direta
+        //por um atributo. Repare findAllByAtivoTrue o parâmetro é "ativo" e o estado desejado é True, mas o método deve ser criada
+        //na classe repository (abra paginacao)
     }
     @PutMapping
     @Transactional
@@ -42,6 +44,5 @@ public class MedicoController {
     public void excluir(@PathVariable Long id){
         var medico = repository.getReferenceById(id);
         medico.excluir();
-
     }
 }

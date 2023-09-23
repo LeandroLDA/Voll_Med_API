@@ -1,6 +1,5 @@
 package com.Leandro.API.paciente;
 
-
 import com.Leandro.API.endereco.Endereco;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,6 +25,7 @@ public class Paciente {
     private TipoPlano tipoplano;
     @Embedded
     private Endereco endereco;
+    private Boolean ativo;
 
     public Paciente(DadosCadastroPaciente dados) {
 
@@ -34,5 +34,21 @@ public class Paciente {
         this.email = dados.email();
         this.tipoplano =  dados.tipoplano();
         this.endereco = new Endereco(dados.endereco());
+    }
+
+    public void atualizarInformacoes(DadosAtualizaPaciente dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }
+        if (dados.endereco() != null) {
+            this.endereco.atualizarInformacoes(dados.endereco());
+        }
+    }
+
+    public void exluir() {
+        this.ativo = false;
     }
 }
